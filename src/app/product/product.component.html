@@ -19,8 +19,9 @@
     {{product.price | number:'.2'}} zł
   </div> 
   <div class='col-sm-3 product-column'>
-    <button class='btn btn-danger col-sm-2 product-button'>+</button>
-    <input class="col-sm-3 mx-2">
-    <button class='btn btn-danger col-sm-2 product-button'>-</button>
+    <button *ngIf="quantity > 1" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity - 1">-</button>
+    <input class="col-sm-3 mx-2" [(ngModel)]="quantity">
+    <button *ngIf="showInceraseButton()" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity + 1">+</button>
+    <button (click)="addToCart()">Do koszyka</button>
   </div>
 </div>

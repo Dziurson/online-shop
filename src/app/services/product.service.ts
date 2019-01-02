@@ -3,25 +3,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../model/product';
-import { getProducts as fakeProducts, getProduct as fakeProduct, getProducts } from '../mock/mocks'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
+  lastVisited: Product[] = [];
   constructor(private db: AngularFirestore) { }
 
   getProduct(productId: string) {
-    return getProducts().find(p => p.id == productId);
+    return this.getProducts().pipe(map(p => p.find(p => p.id == productId)))
   }
 
-  getProducts() : Observable<Product[]> {
+  getProducts(): Observable<Product[]> {
     let products: AngularFirestoreCollection<Product> = this.db.collection('products')
     return products
-        .snapshotChanges()
-        .pipe(map((changes) =>
-          changes.map(a => ({id: a.payload.doc.id, ...a.payload.doc.data()}))));
+      .snapshotChanges()
+      .pipe(map((changes) =>
+        changes.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
   }
 
   addProduct() {
@@ -30,5 +30,12 @@ export class ProductService {
 
   removeProduct() {
 
+  }
+
+  setVisited(product: Product) {
+    if (this.lastVisited.length == 9) {
+      this.lastVisited.pop();
+    }
+    this.lastVisited.push(product);
   }
 }

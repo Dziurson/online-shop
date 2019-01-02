@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
@@ -29,7 +30,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     AngularFireAuthModule, 
     AngularFirestoreModule,
     AppRoutingModule,
-    BrowserModule    
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

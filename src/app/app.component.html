@@ -20,7 +20,10 @@
       <router-outlet></router-outlet>
     </div>
     <div class="col-md-2" style="background-color: yellow">
-      <a href='http://www.pizzeriaverona.tnb.pl/news.php'>Najlepsza Pizza</a>
+      Ostatnio przeglądane
+      <div *ngFor="let product of productService.lastVisited" routerLink="/product/{{product.id}}">
+        {{product.name}}
+      </div>
     </div>
   </div>
 </div>

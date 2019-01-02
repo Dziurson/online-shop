@@ -1,18 +1,24 @@
 <h4>KOSZYK</h4>
 <div *ngFor="let product of cartService.productsInCart">
-  <div>
-    {{product.imageSource}}
-  </div>  
-  <div>
-    {{product.name}}
-  </div>
-  <div>
-    {{product.desc}}
-  </div>
-  <div>
-    {{product.quantity}}
-  </div>
-  <div>
-    {{product.price}}
+  <div routerLink="/product/{{product.id}}">
+    <div>
+      <img width="100px" src="{{product.imageSource}}" class='product-image rounded-circle'>
+    </div>
+
+    <div>
+      {{product.name}}
+    </div>
+    <div>
+      {{product.desc}}
+    </div>
+    <div>
+      {{product.quantity}}
+    </div>
+    <div>
+      {{product.price}}
+    </div>
+    <div>
+      {{product.quantity*product.price}}
+    </div>
   </div>
 </div>
