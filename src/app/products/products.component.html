@@ -1,0 +1,25 @@
+<div class='row'>
+  <div class='col-sm-7'>
+    <div class='row'>
+      <div class='col-md-5'></div>
+      <div class='col-md-7 product-column'>
+        Nazwa
+      </div>
+    </div>
+  </div>
+  <div class='col-sm-1'>
+    <b>
+      Dostępna ilość
+    </b>
+  </div> 
+  <div class='col-sm-1'>
+    <b>
+        Cena
+    </b>    
+  </div> 
+  <div class='col-sm-3'>    
+  </div>
+</div>
+<div *ngFor="let product of productList">
+  <app-product [product]="product"></app-product>
+</div>

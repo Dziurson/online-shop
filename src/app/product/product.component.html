@@ -1,0 +1,26 @@
+<div class='product-row row' [class.product-low-quantity]='product.quantity < 3'>
+  <div class='col-sm-7' routerLink="/product/{{product.id}}">
+    <div class='row'>
+      <div class='col-md-4' >
+        <img src='{{product.imageSource}}' class='product-image rounded-circle'/>  
+      </div> 
+      <div class="col-md-1"></div>
+      <div class='col-md-7 product-column'>
+        <h4>
+          {{product.name}}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class='col-sm-1 product-column'>
+    {{product.quantity}}
+  </div> 
+  <div class='col-sm-1 product-column'>
+    {{product.price | number:'.2'}} zł
+  </div> 
+  <div class='col-sm-3 product-column'>
+    <button class='btn btn-danger col-sm-2 product-button'>+</button>
+    <input class="col-sm-3 mx-2">
+    <button class='btn btn-danger col-sm-2 product-button'>-</button>
+  </div>
+</div>

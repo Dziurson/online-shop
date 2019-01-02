@@ -1,0 +1,18 @@
+<h4>KOSZYK</h4>
+<div *ngFor="let product of cartService.productsInCart">
+  <div>
+    {{product.imageSource}}
+  </div>  
+  <div>
+    {{product.name}}
+  </div>
+  <div>
+    {{product.desc}}
+  </div>
+  <div>
+    {{product.quantity}}
+  </div>
+  <div>
+    {{product.price}}
+  </div>
+</div>
