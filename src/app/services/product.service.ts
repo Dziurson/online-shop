@@ -33,9 +33,12 @@ export class ProductService {
   }
 
   setVisited(product: Product) {
-    if (this.lastVisited.length == 9) {
-      this.lastVisited.pop();
+    if (this.lastVisited.length == 10) {
+      this.lastVisited.splice(0, 1);
     }
+    var current = this.lastVisited.findIndex(p => p.id == product.id);
+    if(current != -1)
+      this.lastVisited.splice(current,1);
     this.lastVisited.push(product);
   }
 }

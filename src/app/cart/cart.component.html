@@ -1,10 +1,10 @@
 <h4>KOSZYK</h4>
 <div *ngFor="let product of cartService.productsInCart">
+  <button (click)="removeFromCart(product.id)">X</button>
   <div routerLink="/product/{{product.id}}">
     <div>
       <img width="100px" src="{{product.imageSource}}" class='product-image rounded-circle'>
     </div>
-
     <div>
       {{product.name}}
     </div>
@@ -15,10 +15,16 @@
       {{product.quantity}}
     </div>
     <div>
-      {{product.price}}
+      {{product.price | number:'.2'}} zł
     </div>
     <div>
-      {{product.quantity*product.price}}
-    </div>
+      {{product.quantity*product.price | number:'.2'}} zł
+    </div>    
   </div>
+  <button class='btn btn-danger col-sm-2 product-button' (click)="deceraseQuantity(product.id, 1)">-</button>
+  <input class="col-sm-3 mx-2">
+  <button *ngIf="showInceraseButton(product)"class='btn btn-danger col-sm-2 product-button' (click)="inceraseQuantity(product.id, 1)">+</button>
+</div>
+<div>
+  <button *ngIf="cartService.productsInCart > 0">Dalej</button>
 </div>

@@ -8,6 +8,10 @@
     <span class="btn btn-outline-white btn-sm mr-3" routerLink="/products">Products</span>
     <div>
       <span class="btn btn-outline-white btn-sm mr-3" routerLink="/cart">Cart</span>
+      <div>
+        {{getTotalItemsInCart()}}
+        {{getTotalCartValue() | number:'.2'}} zł
+      </div>
     </div>        
   </div>
 </nav>
@@ -21,7 +25,7 @@
     </div>
     <div class="col-md-2" style="background-color: yellow">
       Ostatnio przeglądane
-      <div *ngFor="let product of productService.lastVisited" routerLink="/product/{{product.id}}">
+      <div *ngFor="let product of productService.lastVisited.reverse()" routerLink="/product/{{product.id}}">
         {{product.name}}
       </div>
     </div>

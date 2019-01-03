@@ -1,3 +1,4 @@
+import { CartService } from './services/cart.service'
 import { Component } from '@angular/core';
 import { Product } from './model/product';
 import { ProductService } from './services/product.service';
@@ -9,6 +10,16 @@ import { ProductService } from './services/product.service';
 })
 export class AppComponent {
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService) {}
   title = 'online-shop';
+
+  getTotalCartValue() {
+    return this.cartService.getCartTotalValue();
+  }
+
+  getTotalItemsInCart() {
+    return this.cartService.getTotalItemsInCart();
+  }
 }
