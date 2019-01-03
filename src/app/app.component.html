@@ -1,32 +1,46 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar navbar-expand-lg navbar-dark unique-color-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top app-bar">
   <div class="container-fluid white-text">
-    <div>
-      Sklep Internetowy
-    </div>
-    <span class="btn btn-outline-white btn-sm mr-3" routerLink="/home">Home page</span>
-    <span class="btn btn-outline-white btn-sm mr-3" routerLink="/products">Products</span>
-    <div>
-      <span class="btn btn-outline-white btn-sm mr-3" routerLink="/cart">Cart</span>
-      <div>
+    <div class="row align-items-center">
+      <h2>
+        Sklep
+      </h2>
+      <span class="btn btn-primary ml-2" routerLink="/home">Strona główna</span>
+      <span class="btn btn-primary ml-2" routerLink="/products">Produkty</span>
+    </div>    
+    <div class="row align-items-center btn btn-primary" routerLink="/cart">
+        Koszyk      
         {{getTotalItemsInCart()}}
-        {{getTotalCartValue() | number:'.2'}} zł
-      </div>
+        {{getTotalCartValue() | number:'.2'}} zł      
     </div>        
   </div>
 </nav>
 <div style="width: 100%; height: 4rem"></div>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2" style="background-color: brown;">      
+    <div class="col-md-2 mt-1 border border-primary rounded">      
     </div>
     <div class="col-md-8">
       <router-outlet></router-outlet>
     </div>
-    <div class="col-md-2" style="background-color: yellow">
-      Ostatnio przeglądane
-      <div *ngFor="let product of productService.lastVisited.reverse()" routerLink="/product/{{product.id}}">
-        {{product.name}}
+    <div class="col-md-2 mt-1 border border-primary rounded">
+      <h4>
+        Ostatnio przeglądane
+      </h4>
+      <div *ngFor="let product of productService.lastVisited.reverse()">
+        <div class="row align-items-center last-visited-row mb-1 mx-1" routerLink="/product/{{product.id}}">
+          <div>
+            <img class="rounded-circle last-visited-image" src='{{product.imageSource}}'>
+          </div>
+          <div class="ml-1 sm-6">
+            <b>
+              {{product.name}}
+            </b>
+          </div>
+          <div class="ml-1 sm-6">
+            {{product.price}} zł
+          </div>
+        </div>        
       </div>
     </div>
   </div>

@@ -1,0 +1,13 @@
+.last-visited-image {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: block;
+}
+
+.last-visited-row {
+    cursor: pointer;
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
+}
+
