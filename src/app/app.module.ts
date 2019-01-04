@@ -14,6 +14,8 @@ import { ProductComponent } from './product/product.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { OrderComponent } from './order/order.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     ProductComponent,
     CreateProductComponent,
     CartComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    OrderComponent,
+    SummaryComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig), 

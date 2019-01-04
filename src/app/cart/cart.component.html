@@ -27,7 +27,7 @@
     <button *ngIf="showInceraseButton(product)" class='btn btn-danger col-sm-2 product-button' (click)="inceraseQuantity(product.id, 1)">+</button>
   </div>
   <div>
-    <button>Dalej</button>
+    <button routerLink="/order">Dalej</button>
   </div>
 </div>
 <div *ngIf="cartService.productsInCart.length == 0">
