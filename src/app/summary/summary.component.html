@@ -1,3 +1,11 @@
-<p>
-  summary works!
-</p>
+<div>
+  Podsumowanie Zamówienia:
+</div>
+<div *ngFor="let product of getProductsInCart()">
+  <div>{{product.name}}</div>
+</div>
+<div>{{getTotalItemsInCart()}} szt. {{getTotalCartValue() | number:'.2'}} zł</div>
+<div>
+  <button routerLink="/order">Powrót</button>
+  <button>Złóż zamówienie</button>
+</div>
