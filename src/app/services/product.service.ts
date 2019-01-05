@@ -10,7 +10,11 @@ import { Product } from '../model/product';
 export class ProductService {
 
   lastVisited: Product[] = [];
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore) { 
+    const savedLastVisited = localStorage.getItem('lastVisited'); 
+    if(savedLastVisited)
+      this.lastVisited = JSON.parse(savedLastVisited);
+  }
 
   getProduct(productId: string) {
     return this.getProducts().pipe(map(p => p.find(p => p.id == productId)))
@@ -40,5 +44,6 @@ export class ProductService {
     if(current != -1)
       this.lastVisited.splice(current,1);
     this.lastVisited.push(product);
+    localStorage.setItem('lastVisited', JSON.stringify(this.lastVisited));
   }
 }
