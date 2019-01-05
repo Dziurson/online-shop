@@ -9,7 +9,12 @@ export class CartService {
 
   productsInCart: Product[] = [];
   orderData: Order;
-  constructor() { }
+  constructor() { 
+    const savedCart = localStorage.getItem('productsInCart'); 
+      if (savedCart !== null) { 
+        this.productsInCart = JSON.parse(savedCart); 
+      } 
+  }
 
   addToCart(product: Product, quantity: number) {
     var productToAdd = product;
@@ -19,24 +24,29 @@ export class CartService {
       productInCart.quantity = productInCart.quantity + quantity;
     else
       this.productsInCart.push(productToAdd);
+    
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
   }
 
   removeFromCart(productId) {
     var productIndex = this.productsInCart.findIndex(p => p.id == productId);
     if(productIndex != -1)
       this.productsInCart.splice(productIndex,1);
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
   }
 
   inceraseQuantity(productId, quantity) {
     var productIndex = this.productsInCart.findIndex(p => p.id == productId);
     if(productIndex != -1)
       this.productsInCart[productIndex].quantity = this.productsInCart[productIndex].quantity + quantity;
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
   }
 
   deceraseQuantity(productId, quantity) {
     var productIndex = this.productsInCart.findIndex(p => p.id == productId);
     if(productIndex != -1)
       this.productsInCart[productIndex].quantity = this.productsInCart[productIndex].quantity - quantity;
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
   }
 
   getCartTotalValue() {
