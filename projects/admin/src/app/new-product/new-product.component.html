@@ -3,33 +3,36 @@
     <div class="form-group row">
       <label for="name-input" class="col-sm-2 col-form-label">Nazwa Produktu: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="name-input">
+        <input type="text" class="form-control" id="name-input" [(ngModel)]="product.name" name="name">
       </div>
     </div>
     <div class="form-group row">
       <label for="desc-input" class="col-sm-2 col-form-label">Opis Produktu: </label>
       <div class="col-sm-4">
-        <textarea rows="4" class="form-control" id="desc-input">a</textarea>
+        <textarea rows="4" class="form-control" id="desc-input" [(ngModel)]="product.desc" name="desc"></textarea>
       </div>
     </div>
     <div class="form-group row">
       <label for="price-input" class="col-sm-2 col-form-label">Cena: </label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="price-input">
+        <input type="number" class="form-control" id="price-input" [(ngModel)]="product.price" name="price">
       </div>
     </div>
     <div class="form-group row">
       <label for="quantity-input" class="col-sm-2 col-form-label">Ilość: </label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" id="quantity-input">
+        <input type="number" class="form-control" id="quantity-input" [(ngModel)]="product.quantity" name="quantity">
       </div>
     </div>
     <div class="form-group row">
       <label for="img-source-input" class="col-sm-2 col-form-label">Źródło obrazka: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="img-source-input">
+        <input type="text" class="form-control" id="img-source-input" [(ngModel)]="product.imageSource" name="source">
       </div>
     </div>
-    <button class="btn btn-primary" type="submit">Zapisz</button>
+    <button class="btn btn-primary" (click)="insertProduct()">Zapisz</button>
   </form>
+  <div>
+    {{product.name}}
+  </div>
 </div>

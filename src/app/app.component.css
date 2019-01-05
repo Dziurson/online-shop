@@ -10,4 +10,7 @@
     background-color: rgb(230, 230, 230);
     border-radius: 5px;
 }
+.last-visited-row:hover {
+    background-color: rgb(172, 172, 172);
+}
 

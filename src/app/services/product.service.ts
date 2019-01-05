@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../model/product';
+import { getProduct } from '../mock/mocks';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,26 @@ export class ProductService {
         changes.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
   }
 
-  addProduct() {
-
+  insertProduct(product, redirectlink = null) {
+    var self = this;
+    var productIdDocRef = this.db.collection("sequences").doc("product").ref;
+    this.db.firestore.runTransaction(transaction => {
+      return transaction.get(productIdDocRef).then(sfDoc => {
+        if (!sfDoc.exists) {
+          throw "Dokument produkt w kolekcji sequences nie istnieje";
+        }
+        var currentProductId = sfDoc.data().id + 1;
+        product.id = currentProductId; 
+        transaction.update(productIdDocRef, { id: currentProductId });
+      });
+    }).then(() => {
+      self.db.collection('products').add(product).then(() =>{
+        if(redirectlink)
+        window.location.href = redirectlink;
+      });       
+    }).catch(function (error) {
+      console.log("Transaction failed: ", error);
+    });    
   }
 
   removeProduct() {
