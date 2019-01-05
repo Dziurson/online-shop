@@ -2,8 +2,12 @@ import { Product } from './product';
 
 export class Order {
     id: string;
-    customerName: string;
-    address: string;
-    value: number;
-    products: Product[];  
+    name: string;
+    surname: string;
+    zipCode: string;
+    city: string;
+    phone: string;
+    email: string;
+    products: Product[]; 
+    status: string; 
   }

@@ -28,10 +28,7 @@ export class SummaryComponent implements OnInit {
   }
 
   placeOrder() {
-    //TODO: zapis do bazy
-    this.isOrderPlaced = true;
-    this.cartService.clearCart();
-    this.cartService.clearOrderData();
+    this.cartService.placeOrder('/products')
   }
 
 }

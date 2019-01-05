@@ -1,5 +1,7 @@
+import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
+import { Router } from '@angular/router';
 import { Order } from '../model/order';
 
 @Injectable({
@@ -9,11 +11,14 @@ export class CartService {
 
   productsInCart: Product[] = [];
   orderData: Order;
-  constructor() { 
+  constructor(
+    private db: AngularFirestore,
+    private router: Router) {
+
     const savedCart = localStorage.getItem('productsInCart'); 
-      if (savedCart !== null) { 
-        this.productsInCart = JSON.parse(savedCart); 
-      } 
+    if (savedCart !== null) { 
+      this.productsInCart = JSON.parse(savedCart); 
+    } 
   }
 
   addToCart(product: Product, quantity: number) {
@@ -55,21 +60,37 @@ export class CartService {
 
   getTotalItemsInCart() {
     return this.productsInCart.map(p => p.quantity).reduce((prev, curr) => prev + curr, 0);
-  }
-
-  setOrderData(order) {
-    this.orderData = order;
-  }
-
-  getOrderData() {
-    return this.orderData;
-  }
+  }  
 
   clearCart() {
     this.productsInCart = [];
   }
 
   clearOrderData() {
-    this.setOrderData(null);
+    this.orderData = null;
+  }
+
+  placeOrder(redirectLink) {
+    var self = this;
+    var productIdDocRef = this.db.collection("sequences").doc("order").ref;
+    this.db.firestore.runTransaction(transaction => {
+      return transaction.get(productIdDocRef).then(sfDoc => {
+        if (!sfDoc.exists) {
+          throw "Dokument produkt w kolekcji sequences nie istnieje";
+        }
+        var currentOrderId = sfDoc.data().id + 1;
+        self.orderData.id = currentOrderId; 
+        transaction.update(productIdDocRef, { id: currentOrderId });
+      });
+    }).then(() => {
+      self.db.collection('orders').add(self.orderData).then(() =>{
+        this.clearCart();
+        this.clearOrderData();
+        if(redirectLink)
+          this.router.navigate([redirectLink]);
+      });       
+    }).catch(function (error) {
+      console.log("Transaction failed: ", error);
+    }); 
   }
 }

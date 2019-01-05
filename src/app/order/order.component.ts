@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
+import { Order } from '../model/order'
+import { Router } from '@angular/router'
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-order',
@@ -7,9 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  constructor() { }
+  order: Order;
+  constructor(
+    private cartService: CartService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.order = this.cartService.orderData;
+    if(!this.order)
+      this.order = {
+        id: '-1', 
+        name: '',
+        city: '',
+        email: '',
+        phone: '',
+        products: this.cartService.productsInCart,
+        surname: '',
+        zipCode: '',
+        status: 'new'
+      }    
   }
 
+  saveOrderData() {
+    this.cartService.orderData = this.order;
+    this.router.navigate(['/summary']);
+  }
 }

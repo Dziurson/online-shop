@@ -8,42 +8,50 @@
     <div class="form-group row">
       <label for="name-input" class="col-sm-2 col-form-label">Imię: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="name-input">
+        <input type="text" class="form-control" id="name-input" name="name" [(ngModel)]="order.name">
       </div>
     </div>
     <div class="form-group row">
       <label for="surname-input" class="col-sm-2 col-form-label">Nazwisko: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="surname-input">
+        <input type="text" class="form-control" id="surname-input" name="surname" [(ngModel)]="order.surname">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="address-input" class="col-sm-2 col-form-label">Adres: </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="address-input" name="address" [(ngModel)]="order.address">
       </div>
     </div>
     <div class="form-group row">
       <label for="zip-code-input" class="col-sm-2 col-form-label">Kod Pocztowy: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="zip-code-input">
+        <input type="text" class="form-control" id="zip-code-input" name="zipcode" [(ngModel)]="order.zipCode">
       </div>
     </div>
     <div class="form-group row">
       <label for="city-input" class="col-sm-2 col-form-label">Miasto: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="city-input">
+        <input type="text" class="form-control" id="city-input" name="city" [(ngModel)]="order.city">
       </div>
     </div>
     <div class="form-group row">
       <label for="phone-input" class="col-sm-2 col-form-label">Telefon: </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" id="phone-input">
+        <input type="text" class="form-control" id="phone-input" name="phone" [(ngModel)]="order.phone">
       </div>
     </div>
     <div class="form-group row">
       <label for="email-input" class="col-sm-2 col-form-label">Email: </label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" id="email-input">
+        <input type="email" class="form-control" id="email-input" name="mail" [(ngModel)]="order.mail">
       </div>
     </div>
-    <button class="btn btn-primary" type="submit">Zapisz</button>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <button class="btn btn-block btn-primary" (click)="saveOrderData()">Dalej</button>
+      </div>
+    </div>
   </form>
 </div>
-<p>
-  <button routerLink="/summary">Dalej</button>
-</p>
