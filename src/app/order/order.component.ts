@@ -23,7 +23,7 @@ export class OrderComponent implements OnInit {
         id: '-1', 
         name: '',
         city: '',
-        email: '',
+        mail: '',
         phone: '',
         products: this.cartService.productsInCart,
         surname: '',
@@ -33,7 +33,7 @@ export class OrderComponent implements OnInit {
   }
 
   saveOrderData() {
-    this.cartService.orderData = this.order;
+    this.cartService.setOrderData(this.order);
     this.router.navigate(['/summary']);
   }
 }

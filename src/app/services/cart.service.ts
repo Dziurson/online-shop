@@ -19,6 +19,10 @@ export class CartService {
     if (savedCart !== null) { 
       this.productsInCart = JSON.parse(savedCart); 
     } 
+    const savedOrder = localStorage.getItem('orderData'); 
+    if (savedOrder !== null) { 
+      this.orderData = JSON.parse(savedOrder); 
+    } 
   }
 
   addToCart(product: Product, quantity: number) {
@@ -70,22 +74,28 @@ export class CartService {
     this.orderData = null;
   }
 
+  setOrderData(order) {
+    this.orderData = order;
+    localStorage.setItem('orderData', JSON.stringify(this.orderData));
+  }
+
   placeOrder(redirectLink) {
-    var self = this;
-    var productIdDocRef = this.db.collection("sequences").doc("order").ref;
+    var self = this; 
+    var orderIdDocRef = this.db.collection("sequences").doc("order").ref;
     this.db.firestore.runTransaction(transaction => {
-      return transaction.get(productIdDocRef).then(sfDoc => {
+      return transaction.get(orderIdDocRef).then(sfDoc => {
         if (!sfDoc.exists) {
-          throw "Dokument produkt w kolekcji sequences nie istnieje";
+          throw "Dokument order w kolekcji sequences nie istnieje";
         }
         var currentOrderId = sfDoc.data().id + 1;
         self.orderData.id = currentOrderId; 
-        transaction.update(productIdDocRef, { id: currentOrderId });
+        transaction.update(orderIdDocRef, { id: currentOrderId });
       });
     }).then(() => {
-      self.db.collection('orders').add(self.orderData).then(() =>{
+      self.db.collection('orders').doc(self.orderData.id.toString()).set(self.orderData).then(() => { 
         this.clearCart();
         this.clearOrderData();
+        localStorage.removeItem('orderData')
         if(redirectLink)
           this.router.navigate([redirectLink]);
       });       

@@ -7,7 +7,7 @@ export class Order {
     zipCode: string;
     city: string;
     phone: string;
-    email: string;
+    mail: string;
     products: Product[]; 
     status: string; 
   }

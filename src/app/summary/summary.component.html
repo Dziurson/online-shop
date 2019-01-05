@@ -1,14 +1,13 @@
-<div *ngIf="isOrderPlaced">
-  Zamówienie zostało złożone
-</div>
 <div>
   Podsumowanie Zamówienia:
 </div>
-<div *ngFor="let product of getProductsInCart()">
-  <div>{{product.name}}</div>
-</div>
-<div>{{getTotalItemsInCart()}} szt. {{getTotalCartValue() | number:'.2'}} zł</div>
-<div>
-  <button routerLink="/order">Powrót</button>
-  <button (click)="placeOrder()">Złóż zamówienie</button>
+<div *ngIf="order != null">
+  <div *ngFor="let product of order.products">
+    <div>{{product.name}}</div>
+  </div>
+  <div>{{getTotalItemsInCart()}} szt. {{getTotalCartValue() | number:'.2'}} zł</div>
+  <div>
+    <button routerLink="/order">Powrót</button>
+    <button (click)="placeOrder()">Złóż zamówienie</button>
+  </div>
 </div>

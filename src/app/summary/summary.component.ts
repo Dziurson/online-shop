@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
+import { Order } from '../model/order';
 
 @Component({
   selector: 'app-summary',
@@ -8,15 +9,16 @@ import { CartService } from '../services/cart.service';
 })
 export class SummaryComponent implements OnInit {
 
-  isOrderPlaced: boolean = false;
+  order: Order;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-  }
+    this.order = this.getOrder();
+  } 
 
-  getProductsInCart() {
-    return this.cartService.productsInCart;
+  getOrder() {
+    return this.cartService.orderData;
   }
 
   getTotalCartValue() {

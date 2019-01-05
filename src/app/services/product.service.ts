@@ -42,7 +42,7 @@ export class ProductService {
         transaction.update(productIdDocRef, { id: currentProductId });
       });
     }).then(() => {
-      self.db.collection('products').add(product).then(() =>{
+      self.db.collection('products').doc(product.id.toString()).set(product).then(() =>{
         if(redirectlink)
         window.location.href = redirectlink;
       });       
