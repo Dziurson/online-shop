@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start_app": "ng serve --project=\"online-shop\" --port 4200",
+    "start_admin": "ng serve --project=\"admin\" --port 4201",
+    "start": "ng serve --project=\"online-shop\" --port 4200 | ng serve --project=\"admin\" --port 4201",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
