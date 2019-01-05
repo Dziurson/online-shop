@@ -1,0 +1,38 @@
+<div class="m-2">
+  <div>
+    <button class="btn btn-md btn-primary" routerLink="/panel/products/new-product">Dodaj nowy produkt</button>
+  </div>
+  <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
+    <div *ngIf="productList != null" class='row align-items-center'>
+      <div class='col-sm-7 '>
+        <div class='row '>
+          <div class='col-md-5'></div>
+          <div class='col-md-7 product-column'>
+            <b>
+              Nazwa
+            </b>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-1'>
+        <b>
+          Dostępna ilość
+        </b>
+      </div>
+      <div class='col-sm-1'>
+        <b>
+          Cena
+        </b>
+      </div>
+      <div class='col-sm-3'>
+      </div>
+    </div>
+  </div>
+  <div class="border border-primary rounded">
+    <div class="ml-1" *ngFor="let product of productList">
+      <div routerLink="/panel/products/product/{{product.id}}">
+        {{product.name}}
+      </div>
+    </div>
+  </div>
+</div>
