@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
+import { Order } from '../model/order';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { Product } from '../model/product';
 export class CartService {
 
   productsInCart: Product[] = [];
+  orderData: Order;
   constructor() { }
 
   addToCart(product: Product, quantity: number) {
@@ -43,5 +45,21 @@ export class CartService {
 
   getTotalItemsInCart() {
     return this.productsInCart.map(p => p.quantity).reduce((prev, curr) => prev + curr, 0);
+  }
+
+  setOrderData(order) {
+    this.orderData = order;
+  }
+
+  getOrderData() {
+    return this.orderData;
+  }
+
+  clearCart() {
+    this.productsInCart = [];
+  }
+
+  clearOrderData() {
+    this.setOrderData(null);
   }
 }

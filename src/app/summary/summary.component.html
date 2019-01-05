@@ -1,3 +1,6 @@
+<div *ngIf="isOrderPlaced">
+  Zamówienie zostało złożone
+</div>
 <div>
   Podsumowanie Zamówienia:
 </div>
@@ -7,5 +10,5 @@
 <div>{{getTotalItemsInCart()}} szt. {{getTotalCartValue() | number:'.2'}} zł</div>
 <div>
   <button routerLink="/order">Powrót</button>
-  <button>Złóż zamówienie</button>
+  <button (click)="placeOrder()">Złóż zamówienie</button>
 </div>

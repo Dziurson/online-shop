@@ -8,6 +8,8 @@ import { CartService } from '../services/cart.service';
 })
 export class SummaryComponent implements OnInit {
 
+  isOrderPlaced: boolean = false;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
@@ -23,6 +25,13 @@ export class SummaryComponent implements OnInit {
 
   getTotalItemsInCart() {
     return this.cartService.getTotalItemsInCart();
+  }
+
+  placeOrder() {
+    //TODO: zapis do bazy
+    this.isOrderPlaced = true;
+    this.cartService.clearCart();
+    this.cartService.clearOrderData();
   }
 
 }
