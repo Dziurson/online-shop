@@ -5,6 +5,9 @@
         Panel Administracyjny
       </h2>     
     </div> 
+    <div *ngIf="authenticationService.isUserLoggedIn()" class="row align-items-center btn btn-primary" (click)="logOut()">
+      Wyloguj
+  </div>
   </div>
 </nav>
 <div style="width: 100%; height: 4rem"></div>

@@ -1,7 +1,9 @@
+import { AuthenticationService } from '../../../../../src/app/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../../../src/app/model/product'
 import { ProductService } from '../../../../../src/app/services/product.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -12,10 +14,15 @@ export class ProductComponent implements OnInit {
 
   product: Product;
 
-  constructor(private route: ActivatedRoute, 
-    private productService: ProductService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute, 
+    private productService: ProductService,
+    private router: Router) { }
 
   ngOnInit() {
+    if(this.authenticationService.isUserLoggedIn() == false)
+      this.router.navigate(['/login'])
     this.route.params.subscribe(params => {
       const productId = params['product-id'];
       this.productService.getProduct(productId).subscribe((product) => {

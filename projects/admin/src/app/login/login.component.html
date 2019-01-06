@@ -1,4 +1,9 @@
-<p>
-  login works!
-</p>
-<button routerLink="/panel">Login</button>
+<div>
+  Login:
+  <input name='login' [(ngModel)]="login">
+</div>
+<div>
+  Password:
+  <input name='password' [(ngModel)]="password">
+</div>
+<button (click)="logIn()">Login</button>

@@ -1,4 +1,6 @@
+import { AuthenticationService } from '../../../../../src/app/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router) { }
 
-  ngOnInit() {    
+  ngOnInit() {   
+    if(this.authenticationService.isUserLoggedIn() == false)
+      this.router.navigate(['/login']) 
   }
 
 }
