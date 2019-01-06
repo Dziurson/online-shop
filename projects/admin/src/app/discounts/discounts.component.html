@@ -1,0 +1,47 @@
+<div class="m-2">
+    <div>
+      <button class="btn btn-outline-primary btn-sm" routerLink="/panel">
+        Powrót
+      </button>
+    </div>
+    <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
+      <div *ngIf="discountList != null" class='row align-items-center'>
+        <div class='col-sm-1'>
+          <b>
+            Id produktu
+          </b>
+        </div>
+        <div class='col-sm-4'>
+          <b>
+            Kwota promocji
+          </b>
+        </div>
+        <div class='col-sm-5'>
+          <b>
+            Data zakończenia
+          </b>
+        </div>        
+      </div>
+    </div>
+    <div class="border border-primary rounded">
+      <div class="m-1 order-row rounded" *ngFor="let discount of discountList">
+        <div class="row">
+          <div class='col-sm-1'>
+            <b>
+              {{discount.productId}}
+            </b>
+          </div>
+          <div class='col-sm-4'>
+            <b>
+              {{discount.discountValue}}
+            </b>
+          </div>
+          <div class='col-sm-5'>
+            <b>
+              {{discount.discountTimeout}}
+            </b>
+          </div>          
+        </div>
+      </div>
+    </div>    
+  </div>

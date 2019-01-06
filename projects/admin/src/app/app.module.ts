@@ -7,7 +7,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 
-import { AddDiscountComponent } from './add-discount/add-discount.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NewProductComponent } from './new-product/new-product.component';
@@ -16,11 +15,12 @@ import { OrdersComponent } from './orders/orders.component';
 import { PanelComponent } from './panel/panel.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsComponent } from './products/products.component';
+import { DiscountsComponent } from './discounts/discounts.component';
 
 @NgModule({
   declarations: [
-    AddDiscountComponent,
     AppComponent,
+    DiscountsComponent,
     LoginComponent,
     NewProductComponent,
     OrderComponent,

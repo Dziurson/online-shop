@@ -6,39 +6,39 @@
   </div>
   <div class="border border-primary rounded mt-1">
     <div class="row mx-1">
-      <div class="col">
+      <div class="col-2">
         <img class="rounded-circle product-image" src='{{product.imageSource}}' />
       </div>
-      <div class="col">
+      <div class="col-4">
         <div class="row mt-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Nazwa:
           </div>
-          <div class="col">
+          <div class="col-8">
             <input class="form-control" name="name" [(ngModel)]="product.name">
           </div>
         </div>
         <div class="row mt-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Ilość:
           </div>
-          <div class="col">
+          <div class="col-8">
             <input class="form-control" name="quantity" [(ngModel)]="product.quantity">
           </div>
         </div>
         <div class="row mt-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Cena:
           </div>
-          <div class="col">
+          <div class="col-8">
             <input class="form-control" name="price" [(ngModel)]="product.price">
           </div>
         </div>
         <div class="row my-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Żródło obrazka:
           </div>
-          <div class="col">
+          <div class="col-8">
             <input class="form-control" name="image-source" [(ngModel)]="product.imageSource">
           </div>
         </div>
@@ -47,36 +47,36 @@
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-3">
         <div class="row mt-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Opis:
           </div>
-          <div class="col">
+          <div class="col-8">
             <textarea class="form-control" name="desc" rows="6" [(ngModel)]="product.desc"></textarea>
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-3">
         <div class="row mt-1">
           <div class="col text-right">
             Promocja:
           </div>
         </div>
         <div class="row mt-1">
-          <div class="col text-right">
+          <div class="col-4 text-right">
             Do:
           </div>
-          <div class="col">
-            <input class="form-control" name="desc">
+          <div class="col-8">
+            <input *ngIf="discount != null" class="form-control" type="date" name="desc" [(ngModel)]="discount.discountTimeout">
           </div>
         </div>
         <div class="row mt-1">
-            <div class="col text-right">
+            <div class="col-4 text-right">
               Obniżka:
             </div>
-            <div class="col">
-              <input class="form-control" name="desc">
+            <div class="col-8">
+              <input *ngIf="discount != null" class="form-control" type="number" name="desc" [(ngModel)]="discount.discountValue">
             </div>
           </div>
       </div>

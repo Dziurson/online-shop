@@ -5,6 +5,8 @@ import { Product } from '../../../../../src/app/model/product'
 import { ProductService } from '../../../../../src/app/services/product.service'
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
+import { Discount } from 'src/app/model/discount';
+import { DiscountService } from 'src/app/services/discount.service';
 
 @Component({
   selector: 'app-product',
@@ -14,10 +16,12 @@ import { AdminService } from 'src/app/services/admin.service';
 export class ProductComponent implements OnInit {
 
   product: Product;
+  discount: Discount = null;
 
   constructor(
     private adminService: AdminService,
     private authenticationService: AuthenticationService,
+    private discountService: DiscountService,
     private route: ActivatedRoute, 
     private productService: ProductService,
     private router: Router) { }
@@ -28,8 +32,18 @@ export class ProductComponent implements OnInit {
     this.route.params.subscribe(params => {
       const productId = params['product-id'];
       this.productService.getProduct(productId).subscribe((product) => {
-        this.product = product;        
-      })
+        this.product = product;
+        this.discountService.getDiscountByProductId(productId).subscribe((discount) => {
+          this.discount = discount;
+          if(this.discount == null)
+          this.discount = { 
+            id: '-1', 
+            discountValue: 0, 
+            productId: this.product.id, 
+            discountTimeout: null 
+          }; 
+        })             
+      }) 
     }); 
     this.adminService.header = 'Panel Administracyjny/Produkty/Szczegóły Produktu'  
   }
@@ -43,6 +57,8 @@ export class ProductComponent implements OnInit {
 
   updateProduct() {
     this.productService.updateProduct(this.product);
+    if(this.discount.discountValue != 0 && this.discount.discountTimeout != null)
+      this.discountService.insertDiscount(this.discount);
   }
 
 }
