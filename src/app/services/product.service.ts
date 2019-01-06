@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../model/product';
-import { getProduct } from '../mock/mocks';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +41,7 @@ export class ProductService {
         transaction.update(productIdDocRef, { id: currentProductId });
       });
     }).then(() => {
-      self.db.collection('products').doc(product.id.toString()).set(product).then(() =>{
+      self.db.collection('products').doc(product.id.toString()).set(product).then(() => {
         if(redirectlink)
         window.location.href = redirectlink;
       });       

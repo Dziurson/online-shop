@@ -1,3 +1,68 @@
-<p>
-  orders works!
-</p>
+<div class="m-2">
+  <div>
+    <button class="btn btn-outline-primary btn-sm" routerLink="/panel">
+      Powrót
+    </button>
+  </div>
+  <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
+    <div *ngIf="orderList != null" class='row align-items-center'>
+      <div class='col-sm-1 '>
+        <b>
+          Id zamówienia
+        </b>
+      </div>
+      <div class='col-sm-4'>
+        <b>
+          Imię i Nazwisko
+        </b>
+      </div>
+      <div class='col-sm-5'>
+        <b>
+          Adres
+        </b>
+      </div>
+      <div class='col-sm-1'>
+        <b>
+          Wartość
+        </b>
+      </div>
+      <div class='col-sm-1'>
+        <b>
+          Status
+        </b>
+      </div>
+    </div>
+  </div>
+  <div class="border border-primary rounded">
+    <div class="m-1 order-row rounded" *ngFor="let order of orderList">
+      <div class="row" routerLink="/panel/orders/{{order.id}}">
+        <div class='col-sm-1'>
+          <b>
+            {{order.id}}
+          </b>
+        </div>
+        <div class='col-sm-4'>
+          <b>
+            {{order.name}} {{order.surname}}
+          </b>
+        </div>
+        <div class='col-sm-5'>
+          <b>
+            {{order.address}} {{order.zipcode}} {{order.city}}
+          </b>
+        </div>
+        <div class='col-sm-1'>
+          <b>
+            {{getOrderTotalValue(order) | number:'.2'}}
+          </b>
+        </div>
+        <div class='col-sm-1'>
+          <b>
+            {{order.status}}
+          </b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>Całkowita ilość zamówień: {{orderList.length}}</div>
+</div>

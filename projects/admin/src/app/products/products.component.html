@@ -1,6 +1,7 @@
 <div class="m-2">
   <div>
-    <button class="btn btn-md btn-primary" routerLink="/panel/products/new-product">Dodaj nowy produkt</button>
+    <button class="btn btn-md btn-outline-primary mr-1" routerLink="/panel/">Powrót</button>
+    <button class="btn btn-md btn-outline-primary" routerLink="/panel/products/new-product">Dodaj nowy produkt</button>
   </div>
   <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
     <div *ngIf="productList != null" class='row align-items-center'>
@@ -29,11 +30,31 @@
     </div>
   </div>
   <div class="border border-primary rounded">
-    <div class="ml-1" *ngFor="let product of productList">
-      <div routerLink="/panel/products/product/{{product.id}}">
-        {{product.name}}
+    <div class="m-1 row product-row rounded" *ngFor="let product of productList">
+      <div class='col-sm-7' routerLink="/panel/products/product/{{product.id}}">
+        <div class='row'>
+          <div class='col-md-1'>
+            <img src='{{product.imageSource}}' class='product-image rounded-circle' />
+          </div>
+          <div class="col-md-1"></div>
+          <div class='col-md-10 product-column'>
+            <b>
+              {{product.name}}
+            </b>
+          </div>
+        </div>
       </div>
-    </div>    
+      <div class='col-sm-1 product-column'>
+        {{product.quantity}}
+      </div>
+      <div class='col-sm-1 product-column'>
+        {{product.price | number:'.2'}} zł
+      </div>
+      <div class='col-sm-3 product-column'>
+        
+      </div>
+
+    </div>
   </div>
   <div>Całkowita ilość produktów: {{productList.length}}</div>
 </div>
