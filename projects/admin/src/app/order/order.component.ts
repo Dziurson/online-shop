@@ -21,14 +21,28 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService) { }
 
   ngOnInit() {
-    if(this.authenticationService.isUserLoggedIn() == false)
-      this.router.navigate(['/login'])
+    //if(this.authenticationService.isUserLoggedIn() == false)
+     // this.router.navigate(['/login'])
     this.route.params.subscribe(params => {
       const orderId = params['order-id'];
       this.orderService.getOrder(orderId).subscribe((order) => {
         this.order = order;        
       })
-    }); 
+    });    
+  }
+
+  cancelOrder() {
+    var self = this;
+    this.orderService.setOrderState(this.order.id,'Odrzucone').then(()=> {
+      self.router.navigate(['/panel/orders'])
+    })
+  }
+
+  acceptOrder() {
+    var self = this;
+    this.orderService.setOrderState(this.order.id,'Zatwierdzone').then(()=> {
+      self.router.navigate(['/panel/orders'])
+    })
   }
 
 }

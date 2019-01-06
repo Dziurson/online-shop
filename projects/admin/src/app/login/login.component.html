@@ -1,9 +1,22 @@
-<div>
-  Login:
-  <input name='login' [(ngModel)]="login">
+<div class=" login-container m-1">
+  <div class='row login-row'>
+    <div class='col-md-4'>
+    </div>
+    <div class='col-md-4'>
+      <div>
+        <input class="form-control" name='login' [(ngModel)]="login" placeholder="login">
+      </div>
+      <div class="mt-1">
+        <input class="form-control" type='password' name='password' [(ngModel)]="password" placeholder="hasło">
+      </div>
+      <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <button class="mt-1 btn btn-block btn-primary" (click)="logIn()">Login</button>
+        </div>
+      </div>
+    </div>
+    <div class='col-md-4'>
+    </div>
+  </div>
 </div>
-<div>
-  Password:
-  <input name='password' [(ngModel)]="password">
-</div>
-<button (click)="logIn()">Login</button>

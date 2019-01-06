@@ -22,4 +22,14 @@ export class OrderService {
   getOrder(orderId: string) {
     return this.getOrders().pipe(map(o => o.find(o => o.id == orderId)))
   }
+
+  setOrderState(orderId: string, state: string) {
+    return this.db.collection('orders').doc(orderId.toString()).set({
+      status: state,
+    }, { 
+      merge: true 
+    }).then(() => {
+      console.log("Zaktualizowano status dokumentu");
+    })
+  }
 }
