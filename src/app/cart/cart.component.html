@@ -1,33 +1,66 @@
 <h4>KOSZYK</h4>
 <div *ngIf="cartService.productsInCart.length > 0">
-  <div *ngFor="let product of cartService.productsInCart">
-    <button (click)="removeFromCart(product.id)">X</button>
-    <div routerLink="/product/{{product.id}}">
-      <div>
-        <img width="100px" src="{{product.imageSource}}" class='product-image rounded-circle'>
-      </div>
-      <div>
-        {{product.name}}
-      </div>
-      <div>
-        {{product.desc}}
-      </div>
-      <div>
-        {{product.quantity}}
-      </div>
-      <div>
-        {{product.price | number:'.2'}} zł
-      </div>
-      <div>
-        {{product.quantity*product.price | number:'.2'}} zł
+  <div class="row m-1">
+    <div class='col-md-4 col-lg-4'>
+      <div class='row'>
+        <div class='col-md-6 col-sm-4 col-lg-5'></div>
+        <div class='col-md-6 col-sm-8 col-lg-7 product-column'>
+          <b>
+            Nazwa:
+          </b>
+        </div>
       </div>
     </div>
-    <button *ngIf="product.quantity > 1" class='btn btn-danger col-sm-2 product-button' (click)="deceraseQuantity(product.id, 1)">-</button>
-    <input class="col-sm-3 mx-2">
-    <button *ngIf="showInceraseButton(product)" class='btn btn-danger col-sm-2 product-button' (click)="inceraseQuantity(product.id, 1)">+</button>
+    <div class='col-md-2 col-lg-2'>
+      <b>
+        Opis:
+      </b>
+    </div>
+    <div class='col-md-2 col-lg-2 product-column'>
+      <b>
+        Ilość:
+      </b>
+    </div>
+    <div class='col-md-2 col-lg-2 product-column product-column-right'>
+      <b>
+        Wartość:
+      </b>
+    </div>
+    <div class='col-md-2 col-lg-2'>
+    </div>
+  </div>
+  <div class="border border-primary rounded">
+    <div class="row m-1" *ngFor="let product of cartService.productsInCart">
+      <div class='col-md-4 col-lg-4' routerLink="/product/{{product.id}}">
+        <div class='row'>
+          <div class='col-md-6 col-sm-4 col-lg-5'>
+            <img src='{{product.imageSource}}' class='product-image rounded-circle' />
+          </div>
+          <div class='col-md-6 col-sm-8 col-lg-7 product-column'>
+            <b>
+              {{product.name}}
+            </b>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-2 col-lg-2'>
+        {{product.desc}}
+      </div>
+      <div class='col-md-2 col-lg-2 product-column'>
+        {{product.quantity}}
+      </div>
+      <div class='col-md-2 col-lg-2 product-column product-column-right'>
+        {{product.price * product.quantity | number:'.2'}} zł
+      </div>
+      <div class='col-md-2 col-lg-2'>
+        <button *ngIf="product.quantity > 1" class='btn btn-danger product-button' (click)="deceraseQuantity(product.id, 1)">-</button>
+        <button *ngIf="showInceraseButton(product)" class='mx-1 btn btn-danger product-button' (click)="inceraseQuantity(product.id, 1)">+</button>
+        <button class="btn btn-outline-danger" (click)="removeFromCart(product.id)">X</button>
+      </div>
+    </div>
   </div>
   <div>
-    <button routerLink="/order">Dalej</button>
+    <button class="btn btn-primary mt-1" routerLink="/order">Dalej</button>
   </div>
 </div>
 <div *ngIf="cartService.productsInCart.length == 0">

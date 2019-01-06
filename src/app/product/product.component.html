@@ -31,6 +31,6 @@
   <div class='col-sm-3 product-column'>
     <button *ngIf="quantity > 1" class='btn btn-danger col-sm-2 product-button mr-1' (click)="quantity = quantity - 1">-</button>
     <button *ngIf="showInceraseButton()" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity + 1">+</button>
-    <button class="ml-1 btn btn" (click)="addToCart()">Do koszyka {{quantity}} szt</button>
+    <button class="ml-1 btn btn" (click)="addToCart()" [disabled]="disableButton()">Do koszyka {{quantity}} szt</button>
   </div>
 </div>

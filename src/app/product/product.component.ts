@@ -47,4 +47,12 @@ export class ProductComponent implements OnInit {
     return this.discount != null && new Date(this.discount.discountTimeout) > new Date(Date.now());
   }
 
+  disableButton() {
+    var productInCart = this.cartService.productsInCart.find(p => p.id == this.product.id);
+    if(productInCart)
+      return this.product.quantity < productInCart.quantity + this.quantity;
+    else
+      return this.quantity > this.product.quantity;    
+  }
+
 }
