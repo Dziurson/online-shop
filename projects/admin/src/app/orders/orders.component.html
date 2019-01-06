@@ -6,7 +6,7 @@
   </div>
   <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
     <div *ngIf="orderList != null" class='row align-items-center'>
-      <div class='col-sm-1 '>
+      <div class='col-sm-1'>
         <b>
           Id zamówienia
         </b>
@@ -21,15 +21,17 @@
           Adres
         </b>
       </div>
-      <div class='col-sm-1'>
+      <div class='col-sm-1 text-right'>
         <b>
           Wartość
         </b>
       </div>
-      <div class='col-sm-1'>
-        <b>
-          Status
-        </b>
+      <div class='col-sm-1 text-right'>
+        <div class="mr-1">
+          <b>
+            Status
+          </b>
+        </div>
       </div>
     </div>
   </div>
@@ -48,18 +50,20 @@
         </div>
         <div class='col-sm-5'>
           <b>
-            {{order.address}} {{order.zipcode}} {{order.city}}
+            {{order.address}}, {{order.zipCode}} {{order.city}}
           </b>
         </div>
-        <div class='col-sm-1'>
+        <div class='col-sm-1 text-right'>
           <b>
-            {{getOrderTotalValue(order) | number:'.2'}}
+            {{getOrderTotalValue(order) | number:'.2'}} zł
           </b>
         </div>
-        <div class='col-sm-1'>
-          <b>
-            {{order.status}}
-          </b>
+        <div class='col-sm-1 text-right'>
+          <div class="mr-1">
+            <b>
+              {{order.status}}
+            </b>
+          </div>
         </div>
       </div>
     </div>

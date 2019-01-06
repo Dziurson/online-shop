@@ -1,0 +1,21 @@
+.summary-container {
+    padding: 0px;
+    margin: 0px;  
+    min-width: 100%;  
+}
+.product-image {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    display: block;  
+}
+
+.product-column {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.product-column-right {
+    justify-content: flex-end;
+}

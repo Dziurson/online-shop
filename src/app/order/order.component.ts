@@ -25,15 +25,16 @@ export class OrderComponent implements OnInit {
         city: '',
         mail: '',
         phone: '',
-        products: this.cartService.productsInCart,
+        products: [],
         surname: '',
         zipCode: '',
-        status: 'new'
+        status: 'Nowe'
       }    
   }
 
   saveOrderData() {
+    this.order.products = this.cartService.productsInCart; 
     this.cartService.setOrderData(this.order);
-    this.router.navigate(['/summary']);
+    window.location.href="http://localhost:4200/summary"
   }
 }

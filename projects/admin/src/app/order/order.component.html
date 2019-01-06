@@ -3,5 +3,122 @@
     <button class="btn btn-outline-primary btn-sm" routerLink="/panel/orders">
       Powrót
     </button>
+    <button class="btn btn-outline-primary btn-sm mx-1">
+      Zatwierdź
+    </button>
+    <button class="btn btn-outline-primary btn-sm">
+      Odrzuć
+    </button>
+  </div> 
+  <div class="container summary-container">
+    <div class="row">
+      <div class="col">
+        <div class="row m-1">
+          <div class='col-md-6 col-lg-6'>
+            <div class='row'>
+              <div class='col-md-6 col-sm-4 col-lg-5'></div>
+              <div class='col-md-6 col-sm-8 col-lg-7 product-column'>
+                <b>
+                  Nazwa:
+                </b>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-2 col-lg-3 product-column'>
+            <b>
+              Ilość:
+            </b>
+          </div>
+          <div class='col-md-4 col-lg-3 product-column product-column-right'>
+            <b>
+              Wartość:
+            </b>
+          </div>
+        </div>
+        <div *ngIf="order != null" class="border border-primary rounded">
+          <div class="row m-1" *ngFor="let product of order.products">
+            <div class='col-md-6 col-lg-6'>
+              <div class='row'>
+                <div class='col-md-6 col-sm-4 col-lg-5'>
+                  <img src='{{product.imageSource}}' class='product-image rounded-circle' />
+                </div>
+                <div class='col-md-6 col-sm-8 col-lg-7 product-column'>
+                  <b>
+                    {{product.name}}
+                  </b>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-2 col-lg-3 product-column'>
+              {{product.quantity}}
+            </div>
+            <div class='col-md-4 col-lg-3 product-column product-column-right'>
+              {{product.price * product.quantity | number:'.2'}} zł
+            </div>
+          </div>
+        </div>        
+      </div>
+      <div class="col" *ngIf="order != null">
+        <div class="m-1">
+          <b>
+            Dane:
+          </b>
+        </div>
+        <div class="border border-primary rounded">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                Imię:
+              </div>
+              <div class="col-lg-8">
+                <b>
+                  {{order.name}}
+                </b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                Nazwisko:
+              </div>
+              <div class="col-md-8">
+                <b>
+                  {{order.surname}}
+                </b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                Adres:
+              </div>
+              <div class="col-md-8">
+                <b>
+                  {{order.address}}, {{order.zipCode}} {{order.city}}
+                </b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                Telefon:
+              </div>
+              <div class="col-md-8">
+                <b>
+                  {{order.phone}}
+                </b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                Telefon:
+              </div>
+              <div class="col-md-8">
+                <b>
+                  {{order.mail}}
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
