@@ -50,8 +50,12 @@ export class ProductService {
     });    
   }
 
-  removeProduct() {
+  removeProduct(productId) {    
+    return this.db.collection('products').doc(productId.toString()).delete();
+  }
 
+  updateProduct(product: Product) {
+    return this.db.collection('products').doc(product.id.toString()).set(product);
   }
 
   setVisited(product: Product) {

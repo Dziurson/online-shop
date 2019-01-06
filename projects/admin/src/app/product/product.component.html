@@ -1,25 +1,84 @@
-<div class=" m-2">
+<div *ngIf="product != null" class="m-2">
   <div>
     <button class="btn btn-md btn-outline-primary mr-1" routerLink="/panel/products/">Powrót</button>
-    <button class="btn btn-md btn-outline-primary mr-1">Dodaj Promocję</button>
-    <button class="btn btn-md btn-outline-primary mr-1">Usuń Produkt</button>
+    <button class="btn btn-md btn-outline-primary mr-1" (click)="updateProduct()">Zapisz zmiany</button>
+    <button class="btn btn-md btn-outline-primary mr-1" (click)="removeProduct()">Usuń Produkt</button>
   </div>
-  <div class="border border-primary rounded mt-1" *ngIf="product != null">
-    <img class="rounded-circle product-image" src='{{product.imageSource}}' />
-    <div>
-      {{product.name}}
-    </div>
-    <div>
-      {{product.desc}}
-    </div>
-    <div>
-      {{product.quantity}}
-    </div>
-    <div>
-      {{product.price}}
-    </div>
-    <div>
-      <div class='col-sm-3 product-column'>
+  <div class="border border-primary rounded mt-1">
+    <div class="row mx-1">
+      <div class="col">
+        <img class="rounded-circle product-image" src='{{product.imageSource}}' />
+      </div>
+      <div class="col">
+        <div class="row mt-1">
+          <div class="col text-right">
+            Nazwa:
+          </div>
+          <div class="col">
+            <input class="form-control" name="name" [(ngModel)]="product.name">
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col text-right">
+            Ilość:
+          </div>
+          <div class="col">
+            <input class="form-control" name="quantity" [(ngModel)]="product.quantity">
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col text-right">
+            Cena:
+          </div>
+          <div class="col">
+            <input class="form-control" name="price" [(ngModel)]="product.price">
+          </div>
+        </div>
+        <div class="row my-1">
+          <div class="col text-right">
+            Żródło obrazka:
+          </div>
+          <div class="col">
+            <input class="form-control" name="image-source" [(ngModel)]="product.imageSource">
+          </div>
+        </div>
+        <div>
+          <div class='col-sm-3 product-column'>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mt-1">
+          <div class="col text-right">
+            Opis:
+          </div>
+          <div class="col">
+            <textarea class="form-control" name="desc" rows="6" [(ngModel)]="product.desc"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mt-1">
+          <div class="col text-right">
+            Promocja:
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col text-right">
+            Do:
+          </div>
+          <div class="col">
+            <input class="form-control" name="desc">
+          </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col text-right">
+              Obniżka:
+            </div>
+            <div class="col">
+              <input class="form-control" name="desc">
+            </div>
+          </div>
       </div>
     </div>
   </div>

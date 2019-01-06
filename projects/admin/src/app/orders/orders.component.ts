@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Order } from '../../../../../src/app/model/order';
 import { OrderService } from '../../../../../src/app/services/order.service';
 import { Router } from '@angular/router';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-orders',
@@ -14,6 +15,7 @@ export class OrdersComponent implements OnInit {
   orderList: Order[] = [];
 
   constructor(
+    private adminService: AdminService,
     private authenticationService: AuthenticationService,
     private orderService: OrderService,
     private router: Router) { }
@@ -24,6 +26,8 @@ export class OrdersComponent implements OnInit {
 
     this.orderService.getOrders().subscribe((orders) => {
       this.orderList = orders;
+    
+    this.adminService.header = 'Panel Administracyjny/Zamówienia'
     });
   }
 

@@ -2,7 +2,7 @@
   <div class="container-fluid white-text">
     <div class="row align-items-center panel-header" routerLink="/panel">
       <h2>
-        Panel Administracyjny
+        {{adminService.header}}
       </h2>     
     </div> 
     <div *ngIf="authenticationService.isUserLoggedIn()" class="row align-items-center btn btn-primary" (click)="logOut()">
