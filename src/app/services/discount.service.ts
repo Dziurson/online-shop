@@ -44,4 +44,8 @@ export class DiscountService {
       console.log("Transaction failed: ", error);
     });    
   }
+
+  removeDiscount(discount) {
+    this.db.collection('discounts').doc(discount.id.toString()).delete();
+  }
 }

@@ -20,4 +20,8 @@ export class DiscountsComponent implements OnInit {
       this.discountList = discounts;
     });
   }
+
+  removeDiscount(discount) {
+    this.discountService.removeDiscount(discount);
+  }
 }

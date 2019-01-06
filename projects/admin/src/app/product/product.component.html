@@ -53,9 +53,19 @@
             Opis:
           </div>
           <div class="col-8">
-            <textarea class="form-control" name="desc" rows="6" [(ngModel)]="product.desc"></textarea>
+            <textarea class="form-control" name="desc" rows="4" [(ngModel)]="product.desc"></textarea>
           </div>
         </div>
+        <div class="form-group row mt-1">
+            <div class="col-4 text-right">
+              Kategoria: 
+            </div>
+            <div class="col-8">
+              <select type="text" class="form-control" id="category-input" [(ngModel)]="selectedCategoryName" name="category">
+                <option *ngFor="let category of categories">{{category.name}}</option>
+              </select>
+            </div>
+          </div>
       </div>
       <div class="col-3">
         <div class="row mt-1">

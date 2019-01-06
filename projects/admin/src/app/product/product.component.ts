@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { Discount } from 'src/app/model/discount';
 import { DiscountService } from 'src/app/services/discount.service';
+import { Category } from 'src/app/model/category';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,9 @@ import { DiscountService } from 'src/app/services/discount.service';
 export class ProductComponent implements OnInit {
 
   product: Product;
+  categories: Category[];
   discount: Discount = null;
+  selectedCategoryName: string;
 
   constructor(
     private adminService: AdminService,
@@ -42,6 +45,10 @@ export class ProductComponent implements OnInit {
             productId: this.product.id, 
             discountTimeout: null 
           }; 
+        });
+        this.productService.getCategories().subscribe((categories) => {
+          this.categories = categories;
+          this.selectedCategoryName = categories.find(c => c.id == this.product.categoryId).name;
         })             
       }) 
     }); 
@@ -56,6 +63,7 @@ export class ProductComponent implements OnInit {
   }
 
   updateProduct() {
+    this.product.categoryId = this.categories.find(c => c.name == this.selectedCategoryName).id;
     this.productService.updateProduct(this.product);
     if(this.discount.discountValue != 0 && this.discount.discountTimeout != null)
       this.discountService.insertDiscount(this.discount);
