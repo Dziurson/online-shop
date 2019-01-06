@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../model/product';
+import { Category } from '../model/category';
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,13 @@ export class ProductService {
       this.lastVisited.splice(current,1);
     this.lastVisited.push(product);
     localStorage.setItem('lastVisited', JSON.stringify(this.lastVisited));
+  }
+
+  getCategories() {
+    let categories: AngularFirestoreCollection<Category> = this.db.collection('categories')
+    return categories
+      .snapshotChanges()
+      .pipe(map((changes) =>
+        changes.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
   }
 }

@@ -4,5 +4,6 @@ export class Product {
     quantity: number;
     price: number;
     desc: string;
-    imageSource: string;    
+    imageSource: string; 
+    categoryId: number;   
   }

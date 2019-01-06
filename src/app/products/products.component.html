@@ -1,31 +1,60 @@
-<div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
-  <div *ngIf="productList != null" class='row align-items-center'>
-    <div class='col-sm-7 '>
-      <div class='row '>
-        <div class='col-md-5'></div>
-        <div class='col-md-7 product-column'>
-          <b>
-            Nazwa
-          </b>
+<div class="row">
+  <div class="col-2 border border-primary mb-1 mt-1 rounded">
+    <div class="mt-2 mx-1">
+      <div class="row mb-1">
+        <b>
+          Wyszukiwanie
+        </b>
+      </div>
+      <div class="row">
+        <input class="form-control" name="search" [(ngModel)]="searchString" placeholder="Szukaj..." (keyup)="filter()">
+      </div>
+      <div class="row mb-1">
+        <b>
+          Kategorie
+        </b>
+      </div>
+      <div *ngIf="categories != null">
+        <div class="form-check row" *ngFor="let category of categories; let i = index" [attr.data-index]="i">
+          <input class="form-check-input" type="checkbox" value="" id="check{{i}}" [(ngModel)]="category.checked" (change)="filter()">
+          <label class="form-check-label" for="check{{i}}">
+            {{category.name}}
+          </label>
         </div>
       </div>
     </div>
-    <div class='col-sm-1'>
-      <b>
-        Dostępna ilość
-      </b>
-    </div>
-    <div class='col-sm-1'>
-      <b>
-        Cena
-      </b>
-    </div>
-    <div class='col-sm-3'>
-    </div>
   </div>
-</div>
-<div class="border border-primary rounded">
-  <div class="mx-1 rounded" *ngFor="let product of productList" [class.product-low-quantity]='product.quantity < 3'>
-    <app-product [product]="product"></app-product>
+  <div class="col-10">
+    <div class="border border-primary mb-1 mt-1 rounded bg-primary text-white">
+      <div *ngIf="productList != null" class='row align-items-center'>
+        <div class='col-sm-7 '>
+          <div class='row '>
+            <div class='col-md-5'></div>
+            <div class='col-md-7 product-column'>
+              <b>
+                Nazwa
+              </b>
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-1'>
+          <b>
+            Dostępna ilość
+          </b>
+        </div>
+        <div class='col-sm-1'>
+          <b>
+            Cena
+          </b>
+        </div>
+        <div class='col-sm-3'>
+        </div>
+      </div>
+    </div>
+    <div class="border border-primary rounded">
+      <div class="mx-1 rounded" *ngFor="let product of filteredProductList" [class.product-low-quantity]='product.quantity < 3'>
+        <app-product [product]="product"></app-product>
+      </div>
+    </div>
   </div>
 </div>
