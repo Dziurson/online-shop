@@ -19,3 +19,7 @@
 .product-button {
     text-align: center;
 }
+
+.old-price {
+    text-decoration: line-through;
+}

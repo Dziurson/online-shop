@@ -1,9 +1,9 @@
 <div class='product-row row'>
   <div class='col-sm-7' routerLink="/product/{{product.id}}">
     <div class='row'>
-      <div class='col-md-4' >
-        <img src='{{product.imageSource}}' class='product-image rounded-circle'/>  
-      </div> 
+      <div class='col-md-4'>
+        <img src='{{product.imageSource}}' class='product-image rounded-circle' />
+      </div>
       <div class="col-md-1"></div>
       <div class='col-md-7 product-column'>
         <h4>
@@ -14,14 +14,24 @@
   </div>
   <div class='col-sm-1 product-column'>
     {{product.quantity}}
-  </div> 
-  <div class='col-sm-1 product-column'>
+  </div>
+  <div *ngIf="hasActiveDiscount()" class='col-sm-1 product-column'>
+    <div class="col">
+      <div class="row old-price">
+        {{product.price | number:'.2'}} zł
+      </div>
+      <div class="row">
+        {{product.price - discount.discountValue | number:'.2'}} zł
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!hasActiveDiscount()" class='col-sm-1 product-column'>
     {{product.price | number:'.2'}} zł
-  </div> 
+  </div>
   <div class='col-sm-3 product-column'>
     <button *ngIf="quantity > 1" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity - 1">-</button>
     <input class="col-sm-3 mx-2" [(ngModel)]="quantity">
     <button *ngIf="showInceraseButton()" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity + 1">+</button>
-    <button class="ml-1 btn btn"(click)="addToCart()">Do koszyka</button>
+    <button class="ml-1 btn btn" (click)="addToCart()">Do koszyka</button>
   </div>
 </div>

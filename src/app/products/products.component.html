@@ -25,7 +25,7 @@
   </div>
 </div>
 <div class="border border-primary rounded">
-  <div class="mx-1" *ngFor="let product of productList" [class.product-low-quantity]='product.quantity < 3'>
+  <div class="mx-1 rounded" *ngFor="let product of productList" [class.product-low-quantity]='product.quantity < 3'>
     <app-product [product]="product"></app-product>
   </div>
 </div>

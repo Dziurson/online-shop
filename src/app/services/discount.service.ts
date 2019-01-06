@@ -11,7 +11,7 @@ export class DiscountService {
 
   constructor(private db: AngularFirestore) { }
 
-  getDiscountByProductId(productId: string) {
+  getDiscountByProductId(productId) {
     return this.getDiscounts().pipe(map(p => p.find(p => p.productId == productId)))
   }
 
