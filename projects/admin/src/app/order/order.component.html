@@ -1,12 +1,12 @@
 <div class="m-2">
-  <div>
+  <div *ngIf="order != null">
     <button class="btn btn-outline-primary btn-sm" routerLink="/panel/orders">
       Powrót
     </button>
-    <button class="btn btn-outline-primary btn-sm mx-1" (click)="acceptOrder()">
+    <button *ngIf="order.status=='Nowe'" class="btn btn-outline-primary btn-sm mx-1" (click)="acceptOrder()">
       Zatwierdź
     </button>
-    <button class="btn btn-outline-primary btn-sm" (click)="cancelOrder()">
+    <button *ngIf="order.status=='Nowe'" class="btn btn-outline-primary btn-sm" (click)="cancelOrder()">
       Odrzuć
     </button>
   </div> 

@@ -3,13 +3,22 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Order } from '../model/order';
+import { ProductService } from './product.service';
+import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  constructor(private db: AngularFirestore) { }
+  productsFromDb: Product[] = [];
+
+  constructor(private productService: ProductService,
+    private db: AngularFirestore) { 
+      this.productService.getProducts().subscribe((products) => {
+        this.productsFromDb = products;
+      })
+    }
 
   getOrders(): Observable<Order[]> {
     let products: AngularFirestoreCollection<Order> = this.db.collection('orders')
@@ -23,12 +32,17 @@ export class OrderService {
     return this.getOrders().pipe(map(o => o.find(o => o.id == orderId)))
   }
 
-  setOrderState(orderId: string, state: string) {
-    return this.db.collection('orders').doc(orderId.toString()).set({
+  setOrderState(order: Order, state: string) {
+    return this.db.collection('orders').doc(order.id.toString()).set({
       status: state,
     }, { 
       merge: true 
     }).then(() => {
+      if(state=='Odrzucone')
+        order.products.forEach((product) => {
+          var quantityFromDb = this.productsFromDb.find(p => p.id == product.id).quantity
+          this.db.collection('products').doc(product.id).set({quantity: product.quantity + quantityFromDb},{merge: true})
+        })
       console.log("Zaktualizowano status dokumentu");
     })
   }

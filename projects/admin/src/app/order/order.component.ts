@@ -36,14 +36,15 @@ export class OrderComponent implements OnInit {
 
   cancelOrder() {
     var self = this;
-    this.orderService.setOrderState(this.order.id,'Odrzucone').then(()=> {
+    this.orderService.setOrderState(this.order,'Odrzucone').then(()=> {
+
       self.router.navigate(['/panel/orders'])
     })
   }
 
   acceptOrder() {
     var self = this;
-    this.orderService.setOrderState(this.order.id,'Zatwierdzone').then(()=> {
+    this.orderService.setOrderState(this.order,'Zatwierdzone').then(()=> {
       self.router.navigate(['/panel/orders'])
     })
   }
