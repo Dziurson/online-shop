@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../model/product';
 import { Router } from '@angular/router';
 import { Order } from '../model/order';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,11 @@ import { Order } from '../model/order';
 export class CartService {
 
   productsInCart: Product[] = [];
+  productsInDb: Product[] = [];
   orderData: Order;
   constructor(
     private db: AngularFirestore,
+    private productService: ProductService,
     private router: Router) {
 
     const savedCart = localStorage.getItem('productsInCart'); 
@@ -23,6 +26,10 @@ export class CartService {
     if (savedOrder !== null) { 
       this.orderData = JSON.parse(savedOrder); 
     } 
+
+    this.productService.getProducts().subscribe((products)=> {
+      this.productsInDb = products;
+    })
   }
 
   addToCart(product: Product, quantity: number) {
@@ -93,6 +100,10 @@ export class CartService {
       });
     }).then(() => {
       self.db.collection('orders').doc(self.orderData.id.toString()).set(self.orderData).then(() => { 
+        self.productsInCart.forEach((product) => {
+          var dbquantity = self.productsInDb.find(p => p.id == product.id).quantity;
+          self.db.collection('products').doc(product.id).set({quantity: dbquantity - product.quantity },{merge: true})
+        })
         this.clearCart();
         this.clearOrderData();
         localStorage.removeItem('orderData')

@@ -1,25 +1,52 @@
 <div class="border border-primary rounded mt-1" *ngIf="product != null">
-  <img class="rounded-circle product-image" src='{{product.imageSource}}' />
-  <div>
-    {{product.name}}
-  </div>
-  <div>
-    {{product.desc}}
-  </div>
-  <div>
-    {{product.quantity}}
-  </div>
-  <div>
-    {{product.price}}
-  </div>
-  <div>
-    <div class='col-sm-3 product-column'>
-      <button *ngIf="quantity > 1" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity - 1">-</button>
-      <input class="col-sm-3 mx-2" [(ngModel)]="quantity">
-      <button *ngIf="showInceraseButton()" class='btn btn-danger col-sm-2 product-button' (click)="quantity = quantity + 1">+</button>
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="rounded-circle product-image" src='{{product.imageSource}}' />
     </div>
-    <button (click)="addToCart()">
-      Dodaj do koszyka
-    </button>
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col">
+          Nazwa
+        </div>
+        <div class="col">
+          <b>
+            {{product.name}}
+          </b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Opis
+        </div>
+        <div class="col">
+          {{product.desc}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Ilość
+        </div>
+        <div class="col">
+          {{product.quantity}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Cena
+        </div>
+        <div class="col">
+          {{product.price}}
+        </div>
+      </div>
+      <div class="row">
+        <div class='col'>
+        </div>
+        <div class='col'>
+          <button *ngIf="quantity > 1" class='btn btn-danger' (click)="quantity = quantity - 1">-</button>
+          <button *ngIf="showInceraseButton()" class='btn btn-danger mx-1' (click)="quantity = quantity + 1">+</button>
+          <button class='btn' (click)="addToCart()">Dodaj do koszyka</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
