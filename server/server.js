@@ -11,49 +11,52 @@ const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
 app.use(express.json());
-mongoose.connect('mongodb://zpwproject:zpwproject123@ds225382.mlab.com:25382/zpwproject', {useNewUrlParser: true});
+mongoose.connect('mongodb://admin:admin123@ds149914.mlab.com:49914/zpw-project', { useNewUrlParser: true });
 
 const modelProduct = new mongoose.Schema({
-  category: String,
-  description: String,
+  id: String,
   name: String,
-  photo: String,
+  quantity: Number,
   price: Number,
-  quantity: Number
+  desc: String,
+  imageSource: String,
+  categoryId: Number
 });
 
-const modelDiscounts = new mongoose.Schema({
-  discountEndTime: {seconds: Number},
-  productPercentValue: Number,
-  products: [String]
-});
+const modelOrder = new mongoose.Schema({
+  id: String,
+    name: String,
+    surname: String,
+    zipCode: String,
+    city: String,
+    phone: String,
+    mail: String,
+    products: [modelProduct],
+    status: String,
+})
 
-const modelOrders = new mongoose.Schema({
-  address: String,
-  email: String,
-  name: String,
-  status: Number,
-  products: [{id: String, quantity: Number}]
-});
+const modelDiscount = new mongoose.Schema({
+  id: String,
+  productId: String,
+  discountValue: Number,
+  discountTimeout: String,
+})
 
 const products = mongoose.model('products', modelProduct);
-const discounts = mongoose.model('discounts', modelDiscounts);
-const orders = mongoose.model('orders', modelOrders);
-
-/** CORS PRE-FLIGHT **/
+const discounts = mongoose.model('discounts', modelDiscount);
+const orders = mongoose.model('orders', modelOrder);
 
 app.options('/products', cors());
+app.options('/new-product', cors());
 app.options('/product/:id', cors());
+app.options('/discount/:id', cors());
 app.options('/discounts', cors());
 app.options('/orders', cors());
 
 app.options('/product', cors());
 app.options('/discount', cors());
 app.options('/order', cors());
-
 app.options('/order/:id', cors());
-
-/** GET **/
 
 app.get('/products', cors(), (req, res) => {
   return products.find({}, (err, resp) => {
@@ -71,6 +74,23 @@ app.get('/product/:id', cors(), (req, res) => {
   });
 });
 
+app.get('/discount/:id', cors(), (req, res) => {
+  return discounts.find({productId: req.params.id}, (err, resp) => {
+    const toEmit = err ? '[]' : resp[0];
+    io.sockets.emit('discount', toEmit);
+    return res.send(toEmit);
+  });
+});
+
+app.get('/order/:id', cors(), (req, res) => {
+  return products.find({_id: req.params.id}, (err, resp) => {
+    const toEmit = err ? '[]' : resp[0];
+    io.sockets.emit('order', toEmit);
+    return res.send(toEmit);
+  });
+});
+
+
 app.get('/discounts', cors(), (req, res) => {
   return discounts.find({}, (err, resp) => {
     const toEmit = err ? '[]' : resp;
@@ -87,9 +107,7 @@ app.get('/orders', cors(), (req, res) => {
   });
 });
 
-/** POST **/
-
-app.post('/product', cors(), (req, res) => products.create(req.body, () => {
+app.post('/new-product', cors(), (req, res) => products.create(req.body, () => {
   http.get(serverDomain + ':' + serverPort + '/products');
   return res.send('');
 }));
@@ -104,7 +122,21 @@ app.post('/order', cors(), (req, res) => orders.create(req.body, () => {
   return res.send('');
 }));
 
-/** PATCH **/
+app.delete('/product/:id', cors(), (req, res) => {
+  console.log(req.params.id)
+  products.findById(req.params.id, (err, product) => product.remove(() => {
+    http.get(serverDomain + ':' + serverPort + '/products');
+    return res.send('');
+  }));
+});
+
+app.delete('/discount/:id', cors(), (req, res) => {
+  console.log(req.params.id)
+  discounts.findById(req.params.id, (err, discount) => discount.remove(() => {
+    http.get(serverDomain + ':' + serverPort + '/products');
+    return res.send('');
+  }));
+});
 
 app.patch('/product/:id', cors(), (req, res) => {
   products.findById(req.params.id, (err, product) => {
@@ -125,17 +157,6 @@ app.patch('/order/:id', cors(), (req, res) => {
     });
   });
 });
-
-/** DELETE **/
-
-app.delete('/product/:id', cors(), (req, res) => {
-  products.findById(req.params.id, (err, product) => product.remove(() => {
-    http.get(serverDomain + ':' + serverPort + '/products');
-    return res.send('');
-  }));
-});
-
-/** ****** **/
 
 server.listen(serverPort, () => {
   console.log("REST SERVICE - %s:%s", serverDomain, serverPort);

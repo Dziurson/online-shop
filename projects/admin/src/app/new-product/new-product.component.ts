@@ -14,7 +14,7 @@ export class NewProductComponent implements OnInit {
 
   categories: Category[] = [];
   selectedCategoryName: string;
-  product: Product;
+  product: any;
   constructor(
     private authenticationService: AuthenticationService,
     private productService: ProductService,
@@ -23,7 +23,7 @@ export class NewProductComponent implements OnInit {
   ngOnInit() {
     //if(this.authenticationService.isUserLoggedIn() == false)
     //  this.router.navigate(['/login'])
-    this.product = {id: '-1', name: "", desc: " ", price: 0, quantity: 0, imageSource: "", categoryId: -1 }; 
+    this.product = { name: "", desc: " ", price: 0, quantity: 0, imageSource: "", categoryId: -1 }; 
     this.productService.getCategories().subscribe((categories) => {
       this.categories = categories;
       this.selectedCategoryName = categories[0].name;

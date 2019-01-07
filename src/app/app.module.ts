@@ -16,6 +16,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { OrderComponent } from './order/order.component';
 import { SummaryComponent } from './summary/summary.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SummaryComponent } from './summary/summary.component';
     AngularFirestoreModule,
     AppRoutingModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

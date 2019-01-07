@@ -4,6 +4,7 @@ import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
+import { NodeService } from 'src/app/services/node.service';
 
 @Component({
   selector: 'app-products',
@@ -17,10 +18,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private authenticationService: AuthenticationService,
+    private nodeService:NodeService,
     private productService: ProductService,
     private router: Router) { }
 
   ngOnInit() {
+    this.nodeService.connect();
     if(this.authenticationService.isUserLoggedIn() == false)
       this.router.navigate(['/login'])
     this.productService.getProducts().subscribe((products) => {

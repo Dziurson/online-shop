@@ -16,6 +16,7 @@ import { PanelComponent } from './panel/panel.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsComponent } from './products/products.component';
 import { DiscountsComponent } from './discounts/discounts.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DiscountsComponent } from './discounts/discounts.component';
     AngularFirestoreModule,
     AppRoutingModule,
     BrowserModule, 
-    FormsModule,   
+    FormsModule, 
+    HttpClientModule  
   ],
   providers: [],
   bootstrap: [AppComponent]
